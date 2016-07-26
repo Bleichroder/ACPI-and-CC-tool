@@ -1,0 +1,50 @@
+﻿生成启动时间为 2016/3/9 11:41:01。
+     1>项目“D:\VCProject\SVTool\SVTool\SVTool.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Release\SVTool.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         所有输出均为最新。
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D _WINDOWS /D NDEBUG /D _UNICODE /D UNICODE /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Release\SVTool.pch" /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt SVToolDlg.cpp
+         SVToolDlg.cpp
+     1>SVToolDlg.cpp(100): warning C4996: 'ATL::CRegKey::QueryValue': CRegKey::QueryValue(TCHAR *value, TCHAR *valueName) has been superseded by CRegKey::QueryStringValue and CRegKey::QueryMultiStringValue
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\atlmfc\include\atlbase.h(5526) : 参见“ATL::CRegKey::QueryValue”的声明
+     1>SVToolDlg.cpp(102): warning C4996: 'ATL::CRegKey::QueryValue': CRegKey::QueryValue(TCHAR *value, TCHAR *valueName) has been superseded by CRegKey::QueryStringValue and CRegKey::QueryMultiStringValue
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\atlmfc\include\atlbase.h(5526) : 参见“ATL::CRegKey::QueryValue”的声明
+     1>SVToolDlg.cpp(117): warning C4996: 'ATL::CRegKey::QueryValue': CRegKey::QueryValue(TCHAR *value, TCHAR *valueName) has been superseded by CRegKey::QueryStringValue and CRegKey::QueryMultiStringValue
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\atlmfc\include\atlbase.h(5526) : 参见“ATL::CRegKey::QueryValue”的声明
+     1>SVToolDlg.cpp(138): warning C4996: 'ATL::CRegKey::QueryValue': CRegKey::QueryValue(TCHAR *value, TCHAR *valueName) has been superseded by CRegKey::QueryStringValue and CRegKey::QueryMultiStringValue
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\atlmfc\include\atlbase.h(5526) : 参见“ATL::CRegKey::QueryValue”的声明
+     1>SVToolDlg.cpp(159): warning C4996: 'ATL::CRegKey::QueryValue': CRegKey::QueryValue(TCHAR *value, TCHAR *valueName) has been superseded by CRegKey::QueryStringValue and CRegKey::QueryMultiStringValue
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\atlmfc\include\atlbase.h(5526) : 参见“ATL::CRegKey::QueryValue”的声明
+     1>SVToolDlg.cpp(163): warning C4996: 'ATL::CRegKey::QueryValue': CRegKey::QueryValue(TCHAR *value, TCHAR *valueName) has been superseded by CRegKey::QueryStringValue and CRegKey::QueryMultiStringValue
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\atlmfc\include\atlbase.h(5526) : 参见“ATL::CRegKey::QueryValue”的声明
+     1>SVToolDlg.cpp(168): warning C4996: 'ATL::CRegKey::QueryValue': CRegKey::QueryValue(TCHAR *value, TCHAR *valueName) has been superseded by CRegKey::QueryStringValue and CRegKey::QueryMultiStringValue
+                 C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\atlmfc\include\atlbase.h(5526) : 参见“ATL::CRegKey::QueryValue”的声明
+     1>SVToolDlg.cpp(210): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+     1>SVToolDlg.cpp(228): warning C4129: “c”: 不可识别的字符转义序列
+     1>SVToolDlg.cpp(228): warning C4129: “c”: 不可识别的字符转义序列
+     1>SVToolDlg.cpp(277): warning C4129: “e”: 不可识别的字符转义序列
+     1>SVToolDlg.cpp(303): warning C4800: “BOOL”: 将值强制为布尔值“true”或“false”(性能警告)
+       ResourceCompile:
+         所有输出均为最新。
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\VCProject\SVTool\Release\SVTool.exe" /INCREMENTAL:NO /NOLOGO /MANIFEST /ManifestFile:"Release\SVTool.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\VCProject\SVTool\Release\SVTool.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\VCProject\SVTool\Release\SVTool.lib" /MACHINE:X86 Release\SVTool.res
+         Release\ReadMe.obj
+         Release\stdafx.obj
+         Release\SVACPIDlg.obj
+         Release\SVCCToolDlg.obj
+         Release\SVTool.obj
+         Release\SVToolDlg.obj
+         正在生成代码
+         已完成代码的生成
+         SVTool.vcxproj -> D:\VCProject\SVTool\Release\SVTool.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"D:\VCProject\SVTool\Release\SVTool.exe;#1" /manifest Release\SVTool.exe.intermediate.manifest "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\Include\Manifest\dpiaware.manifest"
+       FinalizeBuildStatus:
+         正在删除文件“Release\SVTool.unsuccessfulbuild”。
+         正在对“Release\SVTool.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“D:\VCProject\SVTool\SVTool\SVTool.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:11.07
