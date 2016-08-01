@@ -8,4 +8,4 @@ A Windows test tool based on MFC which can run ACPI test or CopyCompare test
 
 ## CC
 CopyCompare的缩写，用于验证系统稳定性，在多个存储设备(SATA硬盘、U盘、USB移动硬盘、PCIe硬盘、网络映射存储)之间拷贝并比较不同容量大小的整文件和碎文件，压力测试的一种  
-![cc](./ACPI-and-CC-tool/DOC/CC.png)
+![cc](/ACPI-and-CC-tool/DOC/CC.png)
