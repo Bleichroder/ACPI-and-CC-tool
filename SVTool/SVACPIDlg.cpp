@@ -354,26 +354,26 @@ void CSVACPIDlg::OnBnClickedS5button()
 		//把设置添加到新建的项中
 		if(hKey.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
 		{
-			hKey.SetValue(temp,_T("LastLoop"));
+			hKey.SetStringValue(_T("LastLoop"), temp);
 			temp = _T("S5");
 			ACPIs = temp;
-			hKey.SetValue(temp,_T("CurrState"));
+			hKey.SetStringValue(_T("CurrState"), temp);
 			temp = _T("1");
-			hKey.SetValue(HWinfo,_T("OrigHWInfo"));
+			hKey.SetStringValue(_T("OrigHWInfo"), HWinfo);
 		}
 
 		GetDlgItemText(IDC_Countdown,temp);
-		hKey.SetValue(logpath,_T("LogPath"));
-		hKey.SetValue(errorpath,_T("ErrorPath"));
+		hKey.SetStringValue(_T("LogPath"), logpath);
+		hKey.SetStringValue(_T("ErrorPath"), errorpath);
 		int value = _ttoi(temp);
 		if(value<5||value>100) {AfxMessageBox(_T(" warning! count down TIME is invalid!"));return;}
 		SetDlgItemText(IDC_time_to_run,temp);
-		hKey.SetValue(temp,_T("SetTime"));
+		hKey.SetStringValue(_T("SetTime"), temp);
 
 		GetDlgItemText(IDC_Loop,temp);
 		value = _ttoi(temp);
 		if(value<1||value>9999)  {AfxMessageBox(_T(" warning! LOOP set is invalid!"));return;}
-		hKey.SetValue(temp,_T("SetLoop"));
+		hKey.SetStringValue(_T("SetLoop"), temp);
 
 		hKey.Close();
 
@@ -385,7 +385,7 @@ void CSVACPIDlg::OnBnClickedS5button()
 		if(hKey.Open(HKEY_CURRENT_USER,_T("Software\\Microsoft\\Windows\\CurrentVersion\\Run")) != ERROR_SUCCESS)
 			AfxMessageBox(_T("error open auto_run reg key!!!"));
 		else
-			hKey.SetValue(rbFullAppPath,_T("SVRtc"));
+			hKey.SetStringValue(_T("SVRtc"), rbFullAppPath);
 
 		hKey.Close();
 
@@ -464,13 +464,13 @@ void CSVACPIDlg::OnBnClickedRbbutton()
 		//把设置添加到新建的项中
 		if(hKey.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
 		{
-			hKey.SetValue(HWinfo,_T("OrigHWInfo"));
-			hKey.SetValue(logpath,_T("LogPath"));
-			hKey.SetValue(temp,_T("LastLoop"));
-			hKey.SetValue(errorpath,_T("ErrorPath"));
+			hKey.SetStringValue(_T("OrigHWInfo"), HWinfo);
+			hKey.SetStringValue(_T("LogPath"), logpath);
+			hKey.SetStringValue(_T("LastLoop"), temp);
+			hKey.SetStringValue(_T("ErrorPath"), errorpath);
 			temp = _T("Reboot");
 			ACPIs = temp;
-			hKey.SetValue(temp,_T("CurrState"));
+			hKey.SetStringValue(_T("CurrState"), temp);
 			temp = _T("1");
 		}
 
@@ -478,12 +478,12 @@ void CSVACPIDlg::OnBnClickedRbbutton()
 		int value = _ttoi(temp);
 		if(value<5||value>100) {AfxMessageBox(_T(" warning! count down TIME is invalid!"));return;}
 		SetDlgItemText(IDC_time_to_run,temp);
-		hKey.SetValue(temp,_T("SetTime"));
+		hKey.SetStringValue(_T("SetTime"), temp);
 
 		GetDlgItemText(IDC_Loop,temp);
 		value = _ttoi(temp);
 		if(value<1||value>9999)  {AfxMessageBox(_T(" warning! LOOP set is invalid!"));return;}
-		hKey.SetValue(temp,_T("SetLoop"));
+		hKey.SetStringValue(_T("SetLoop"), temp);
 
 		hKey.Close();
 
@@ -492,7 +492,7 @@ void CSVACPIDlg::OnBnClickedRbbutton()
 		if(hKey.Open(HKEY_CURRENT_USER,_T("Software\\Microsoft\\Windows\\CurrentVersion\\Run")) != ERROR_SUCCESS)
 			AfxMessageBox(_T("error open auto_run reg key!!!"));
 		else
-			hKey.SetValue(rbFullAppPath,_T("SVReboot"));
+			hKey.SetStringValue(_T("SVReboot"), rbFullAppPath);
 
 		hKey.Close();
 
@@ -752,12 +752,12 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 				CString temp;
 				DWORD dwcount = 1024;
 				if(Key.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
-					Key.QueryValue(TMP,_T("State"),&dwcount);
+					Key.QueryStringValue(_T("State"),TMP,&dwcount);
 				temp = TMP;
 				state = temp+ _T("\r\nFinished at : ") + CurrTime;
 				SetDlgItemText(IDC_State, state);
 				
-				Key.QueryValue(TMP,_T("LogPath"),&dwcount);
+				Key.QueryStringValue(_T("LogPath"),TMP,&dwcount);
 				logpath = TMP;
 				Key.Close();
 
@@ -775,7 +775,7 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 				cosCurr.Format(_T("%d:%d"),st.wMinute,st.wSecond);
 				CRegKey cKey;
 				if(cKey.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
-					cKey.QueryValue(TMP,_T("LastShutDownTime"),&dwcount);
+					cKey.QueryStringValue(_T("LastShutDownTime"),TMP,&dwcount);
 				temp = TMP;
 				int nPos =temp.Find(_T(":"));
 				int costTime = GetCostTime(cosCurr,temp.Right(temp.GetLength()-nPos-1));
@@ -840,11 +840,11 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 					CString temp;
 					DWORD dwcount = 1024;
 					if(hKey.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
-						hKey.QueryValue(TMP,_T("State"),&dwcount);
+						hKey.QueryStringValue(_T("State"),TMP,&dwcount);
 					temp = TMP;
 					state = temp+ _T("\r\nFinished at : ") + CurrTime;
 					SetDlgItemText(IDC_State, state);
-					hKey.QueryValue(TMP,_T("LogPath"),&dwcount);
+					hKey.QueryStringValue(_T("LogPath"),TMP,&dwcount);
 					logpath = TMP;
 					hKey.Close();
 
@@ -862,7 +862,7 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 					cosCurr.Format(_T("%d:%d"),st.wMinute,st.wSecond);
 					CRegKey cKey;
 					if(cKey.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
-						cKey.QueryValue(TMP,_T("LastShutDownTime"),&dwcount);
+						cKey.QueryStringValue(_T("LastShutDownTime"),TMP,&dwcount);
 					temp = TMP;
 					int nPos =temp.Find(_T(":"));
 					int costTime = GetCostTime(cosCurr,temp.Right(temp.GetLength()-nPos-1));
@@ -917,16 +917,16 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 
 				if(hKey.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
 				{
-					hKey.SetValue(state,_T("State"));
+					hKey.SetStringValue(_T("State"), state);
 					
 					CString SetLoop;
 					SetLoop.Format(_T("%d"),loop);
-					hKey.SetValue(SetLoop,_T("LastLoop"));
+					hKey.SetStringValue(_T("LastLoop"), SetLoop);
 
 					SYSTEMTIME st;
 					GetLocalTime(&st);
 					CurrTime.Format(_T("%d-%d-%d %d:%d:%d"),st.wYear,st.wMonth,st.wDay,st.wHour,st.wMinute,st.wSecond);
-					hKey.SetValue(CurrTime,_T("LastShutDownTime"));
+					hKey.SetStringValue(_T("LastShutDownTime"), CurrTime);
 
 					if(GetDlgItem(IDC_S5BUTTON)->IsWindowEnabled()) 
 					{
@@ -948,7 +948,7 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 
 						tmptime1 =tmptime1-tmptime2;
 						CurrTime.Format(_T("%lld"),tmptime1);
-						hKey.SetValue(CurrTime,_T("RealTime"));
+						hKey.SetStringValue(_T("RealTime"), CurrTime);
 
 						SetLocalTime(&st);	
 					}

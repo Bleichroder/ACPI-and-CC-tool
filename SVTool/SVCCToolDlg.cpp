@@ -1053,7 +1053,7 @@ void CSVCCToolDlg::OnBnClickedCancel()
 	filename+=_T("CCtool.bat");
 
 	CFileFind finder;
-	bool iffind = finder.FindFile(filename);
+	BOOL iffind = finder.FindFile(filename);
 	if(iffind)
 	{
 		CFile CCbat;
