@@ -332,7 +332,7 @@ void CSVACPIDlg::OnBnClickedS5button()
 		//新建项
 		hKey.Create(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information"));
 		CString HWinfo = hardwareinfo();
-		CString temp = _T("0");
+		CString temp;
 		CString rbFullAppPath =_T("\"");
 		SetDlgItemText(IDC_HWINFO,HWinfo);
 		SetDlgItemText(IDC_Loop_time,_T("0"));
@@ -354,7 +354,8 @@ void CSVACPIDlg::OnBnClickedS5button()
 		//把设置添加到新建的项中
 		if(hKey.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
 		{
-			hKey.SetStringValue(_T("LastLoop"), temp);
+			int a = 0;
+			hKey.SetQWORDValue(_T("LastLoop"), a);
 			temp = _T("S5");
 			ACPIs = temp;
 			hKey.SetStringValue(_T("CurrState"), temp);
@@ -442,7 +443,7 @@ void CSVACPIDlg::OnBnClickedRbbutton()
 		//新建项
 		hKey.Create(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information"));
 		CString HWinfo = hardwareinfo();
-		CString temp = _T("0");
+		CString temp;
 		CString rbFullAppPath =_T("\"");
 		SetDlgItemText(IDC_HWINFO,HWinfo);
 		SetDlgItemText(IDC_Loop_time,_T("0"));
@@ -464,9 +465,10 @@ void CSVACPIDlg::OnBnClickedRbbutton()
 		//把设置添加到新建的项中
 		if(hKey.Open(HKEY_CURRENT_USER,_T("Software\\SVACPI\\ACPI Information")) == ERROR_SUCCESS)
 		{
+			int a = 0;
 			hKey.SetStringValue(_T("OrigHWInfo"), HWinfo);
 			hKey.SetStringValue(_T("LogPath"), logpath);
-			hKey.SetStringValue(_T("LastLoop"), temp);
+			hKey.SetQWORDValue(_T("LastLoop"), a);
 			hKey.SetStringValue(_T("ErrorPath"), errorpath);
 			temp = _T("Reboot");
 			ACPIs = temp;
@@ -919,9 +921,9 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 				{
 					hKey.SetStringValue(_T("State"), state);
 					
-					CString SetLoop;
-					SetLoop.Format(_T("%d"),loop);
-					hKey.SetStringValue(_T("LastLoop"), SetLoop);
+					//CString SetLoop;
+					//SetLoop.Format(_T("%d"),loop);
+					hKey.SetQWORDValue(_T("LastLoop"), loop);
 
 					SYSTEMTIME st;
 					GetLocalTime(&st);

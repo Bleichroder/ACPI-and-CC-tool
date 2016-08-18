@@ -97,9 +97,9 @@ BOOL CSVToolDlg::OnInitDialog()
 	{
 		//HKEY hKey;
 		//RegSetValueEx(hKey,_T("OrigHWInfo"),0,REG_SZ,(CONST BYTE*)temp1.GetBuffer(0),temp1.GetLength()*2);
-		KKey.QueryValue(TMP1,_T("OrigHWInfo"),&dd);
+		KKey.QueryStringValue(_T("OrigHWInfo"),TMP1,&dd);
 		temp1 = TMP1;
-		KKey.QueryValue(TMP1,_T("ErrorPath"),&dd);
+		KKey.QueryStringValue(_T("ErrorPath"),TMP1,&dd);
 		ACPI.errorpath = TMP1;
 		if(ACPI.CheckDiffInfo(ACPI.ACPIs, temp1, HWinfo))
 			ACPI.GetDlgItem(IDC_STATIC_Error)->EnableWindow(TRUE); 
@@ -114,7 +114,7 @@ BOOL CSVToolDlg::OnInitDialog()
 		TCHAR TMP[1024];
 		CString temp;
 		DWORD dwcount = 1024, dwType = REG_SZ;
-		hKey.QueryValue(TMP,_T("CurrState"),&dwcount);
+		hKey.QueryStringValue(_T("CurrState"),TMP,&dwcount);
 		temp = TMP;
 		ACPI.ACPIs = temp;
 
@@ -135,7 +135,7 @@ BOOL CSVToolDlg::OnInitDialog()
 			tmp.LowPart = ft.dwLowDateTime;
 			tmp.HighPart =ft.dwHighDateTime;
 			tmptime = tmp.QuadPart;
-			hKey.QueryValue(TMP,_T("RealTime"),&dwcount);
+			hKey.QueryStringValue(_T("RealTime"),TMP,&dwcount);
 			temp = TMP;
 						
 			tmptime +=_ttoi64(temp);
@@ -156,18 +156,20 @@ BOOL CSVToolDlg::OnInitDialog()
 		}
 
 		//从注册表中恢复设置
-		hKey.QueryValue(TMP,_T("SetLoop"),&dwcount);
+		hKey.QueryStringValue(_T("SetLoop"),TMP,&dwcount);
 		temp = TMP;
 		ACPI.SetDlgItemText(IDC_Loop,temp);
 
-		hKey.QueryValue(TMP,_T("SetTime"),&dwcount);
+		hKey.QueryStringValue(_T("SetTime"),TMP,&dwcount);
 		temp = TMP;
 		ACPI.SetDlgItemText(IDC_Countdown,temp);
 		ACPI.SetDlgItemText(IDC_time_to_run,temp);
 
-		hKey.QueryValue(TMP,_T("LastLoop"),&dwcount);
-		temp = TMP;
-		ACPI.SetDlgItemText(IDC_Loop_time,temp);
+		ULONGLONG a;
+		hKey.QueryQWORDValue(_T("LastLoop"),a);
+		CString Loop;
+		Loop.Format(_T("%d"),a);
+		ACPI.SetDlgItemText(IDC_Loop_time,Loop);
 
 		hKey.Close();
 
@@ -207,7 +209,7 @@ BOOL CSVToolDlg::OnInitDialog()
 	filename+=_T("CCtool.bat");
 
 	CFileFind finder;
-	bool iffind = finder.FindFile(filename);
+	BOOL iffind = finder.FindFile(filename);
 	if(iffind)
 	{
 		CFile CCbat;
@@ -225,7 +227,7 @@ BOOL CSVToolDlg::OnInitDialog()
 	CCbat.Write("set d=%ddisk:~0,1%\r\n",sizeof("set d=%ddisk:~0,1%\r\n")-1);
 	CCbat.Write("if not exist %d%:\\ color fc&echo ERROR!!! %d%:\\ is not EXIST!!!&pause\r\n",sizeof("if not exist %d%:\\ color fc&echo ERROR!!! %d%:\\ is not EXIST!!!&pause\r\n")-1);
 	CCbat.Write("\r\n",sizeof("\r\n")-1);
-	CCbat.Write("path=c:\\;c:\\windows\command;c:\\windows\\system32;c:\\windows;C:\\WinNT\\system32;c:\\WinNT;c:\\windows\\sysWOW64;\r\n",sizeof("path=c:\\;c:\\windows\command;c:\\windows\\system32;c:\\windows;C:\\WinNT\\system32;c:\\WinNT;c:\\windows\\sysWOW64;\r\n")-1);
+	CCbat.Write("path=c:\\;c:\\windows\\command;c:\\windows\\system32;c:\\windows;C:\\WinNT\\system32;c:\\WinNT;c:\\windows\\sysWOW64;\r\n",sizeof("path=c:\\;c:\\windows\\command;c:\\windows\\system32;c:\\windows;C:\\WinNT\\system32;c:\\WinNT;c:\\windows\\sysWOW64;\r\n")-1);
 	CCbat.Write("break=on\r\n",sizeof("break=on\r\n")-1);
 	CCbat.Write("\r\n",sizeof("\r\n")-1);
 	CCbat.Write("if exist c:\\%s%-%d%-%1.txt del /q c:\\%s%-%d%-%1.txt\r\n",sizeof("if exist c:\\%s%-%d%-%1.txt del /q c:\\%s%-%d%-%1.txt\r\n")-1);
@@ -274,7 +276,7 @@ BOOL CSVToolDlg::OnInitDialog()
 	CCbat.Write("set copyenddate=%date%\r\n",sizeof("set copyenddate=%date%\r\n")-1);
 	CCbat.Write("if errorlevel 1 color fc&echo ERROR happened when copy from %3 to D:\\DataComp !!(no files were found) in loop %looptime% at %time% %date%>>C:\\error.txt &ping 127.0.0.1 -n 30>nul&goto l\r\n",sizeof("if errorlevel 1 color fc&echo ERROR happened when copy from %3 to D:\\DataComp !!(no files were found) in loop %looptime% at %time% %date%>>C:\\error.txt &ping 127.0.0.1 -n 30>nul&goto l\r\n")-1);
 	CCbat.Write("if errorlevel 4 color cf&echo ERROR happened when copy from %3 to D:\\DataComp !!(there is not enough memory) in loop %looptime% at %time% %date%>>C:\\error.txt &ping 127.0.0.1 -n 30>nul&goto l\r\n",sizeof("if errorlevel 4 color cf&echo ERROR happened when copy from %3 to D:\\DataComp !!(there is not enough memory) in loop %looptime% at %time% %date%>>C:\\error.txt &ping 127.0.0.1 -n 30>nul&goto l\r\n")-1);
-	CCbat.Write("echo n|comp %2 D:\\DataComp\r\n",sizeof("\echo n|comp %2 D:\\DataComp\r\n")-1);
+	CCbat.Write("echo n|comp %2 D:\\DataComp\r\n",sizeof("echo n|comp %2 D:\\DataComp\r\n")-1);
 	CCbat.Write("set compendtime=%time%\r\n",sizeof("set compendtime=%time%\r\n")-1);
 	CCbat.Write("set compenddate=%date%\r\n",sizeof("set compenddate=%date%\r\n")-1);
 	CCbat.Write("if errorlevel 1 color cf&echo ERROR happened when compare %2 with D:\\DataComp !!(files are different) in loop %looptime% at %time% %date%>>C:\\error.txt &ping 127.0.0.1 -n 30>nul&goto l\r\n",sizeof("if errorlevel 1 color cf&echo ERROR happened when compare %2 with D:\\DataComp !!(files are different) in loop %looptime% at %time% %date%>>C:\\error.txt &ping 127.0.0.1 -n 30>nul&goto l\r\n")-1);
