@@ -22,9 +22,6 @@
     <None Include="resource.hm">
       <Filter>头文件</Filter>
     </None>
-    <None Include="..\..\..\download\bitbug_favicon(1).ico">
-      <Filter>资源文件</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SVTool.h">
@@ -76,5 +73,10 @@
     <ResourceCompile Include="SVTool.rc">
       <Filter>资源文件</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\SVACPI.ico">
+      <Filter>资源文件</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 #include "afxcmn.h"
 #include "SVCCToolDlg.h"
 #include "SVACPIDlg.h"
+#include "afxwin.h"
 
 
 // CSVToolDlg 对话框
@@ -25,6 +26,7 @@ public:
 // 实现
 protected:
 	HICON m_hIcon;
+	CFont m_Font;
 
 	// 生成的消息映射函数
 	virtual BOOL OnInitDialog();
@@ -38,4 +40,5 @@ public:
 	CSVACPIDlg ACPI;
 
 	afx_msg void OnClose();
+	CStatic m_static;
 };

@@ -4,6 +4,7 @@
 // 特定于项目的包含文件
 
 #pragma once
+#pragma comment(lib,"WinRing0.lib")
 
 #ifndef _SECURE_ATL
 #define _SECURE_ATL 1
@@ -26,6 +27,29 @@
 
 #include <afxdisp.h>        // MFC 自动化类
 
+#include "OlsApi.h"
+#ifndef WINVER
+#define WINVER 0x0400
+#endif
+
+#ifndef _WIN32_WINNT                
+#define _WIN32_WINNT 0x0400
+#endif						
+
+#ifndef _WIN32_WINDOWS
+#define _WIN32_WINDOWS 0x0410
+#endif
+
+#ifndef _WIN32_IE
+#define _WIN32_IE 0x0600
+#endif
+
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
+#ifndef VC_EXTRALEAN
+#define VC_EXTRALEAN            // 从 Windows 头中排除极少使用的资料
+#endif
 
 
 #ifndef _AFX_NO_OLE_SUPPORT

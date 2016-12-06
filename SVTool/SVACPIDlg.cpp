@@ -930,8 +930,19 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 					CurrTime.Format(_T("%d-%d-%d %d:%d:%d"),st.wYear,st.wMonth,st.wDay,st.wHour,st.wMinute,st.wSecond);
 					hKey.SetStringValue(_T("LastShutDownTime"), CurrTime);
 
+					int m_initialize = InitializeOls();
+					int m_status = GetDllStatus();
+					BYTE return_value = 0;
+
 					if(GetDlgItem(IDC_S5BUTTON)->IsWindowEnabled()) 
 					{
+						WriteIoPortByte(0x70, 0x8b);
+						return_value = ReadIoPortByte(0x71);
+						WriteIoPortByte(0x70, 0x8b);
+						WriteIoPortByte(0x71, return_value | 0x80);
+
+						DeinitializeOls();
+
 						FILETIME ft;
 						LARGE_INTEGER tmp;
 						LONGLONG tmptime1=0,tmptime2=0;
@@ -952,7 +963,15 @@ void CSVACPIDlg::OnTimer(UINT_PTR nIDEvent)
 						CurrTime.Format(_T("%lld"),tmptime1);
 						hKey.SetStringValue(_T("RealTime"), CurrTime);
 
-						SetLocalTime(&st);	
+						SetLocalTime(&st);
+
+						m_initialize = InitializeOls();
+						m_status = GetDllStatus();
+
+						WriteIoPortByte(0x70, 0x8b);
+						WriteIoPortByte(0x71, return_value);
+
+						DeinitializeOls();
 					}
 				}
 				hKey.Close();
